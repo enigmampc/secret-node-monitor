@@ -24,7 +24,7 @@ const checkStatusOfServer = async () => {
     const masterHeight = getBlockFromResponse(await masterResult.json());
     console.log(`master height: ${masterHeight}`)
 
-    return !isNaN(myHeight) && !isNaN(masterHeight) && (Number(masterResult) - Number(myHeight) >= THRESHOLD);
+    return !isNaN(myHeight) && !isNaN(masterHeight) && (Number(masterHeight) - Number(myHeight) <= THRESHOLD);
 
 }
 
@@ -59,6 +59,7 @@ const main = async() => {
             }
 
             if (isStopped && status) {
+                isStopped = false;
                 await startNginx();
                 console.log(`Started Nginx`)
             }
